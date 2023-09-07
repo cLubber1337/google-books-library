@@ -7,7 +7,6 @@ export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://www.googleapis.com/books/v1',
-        credentials: 'include',
     }),
     endpoints: () => ({}),
 })
