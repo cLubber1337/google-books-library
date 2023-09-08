@@ -9,7 +9,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
-      <main className="mx-auto px-4">{children}</main>
+      <main className="mx-auto max-w-[1200px] px-4">{children}</main>
     </>
   )
 }

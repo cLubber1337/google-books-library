@@ -1,15 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Layout } from '@/components/ui/layout'
-import { BooksPage } from '@/pages/books-page'
+import { HomePage } from '@/pages/home-page'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <Layout>
-        <BooksPage />
-      </Layout>
-    ),
+    element: <HomePage />,
   },
 ])
 

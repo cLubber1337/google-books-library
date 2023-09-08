@@ -1,9 +1,24 @@
 import { BsSearch } from 'react-icons/bs'
-import { MouseEvent } from 'react'
 
-export const SearchBar = () => {
-  const handleClickSearch = (e: MouseEvent<HTMLButtonElement>) => {
+import { useAppDispatch, useAppSelector } from '@/services/store.ts'
+import { booksActions, selectSearchValue } from '@/services/books'
+import { ChangeEvent } from 'react'
+
+type SearchBarProps = {
+  clickToSearch: (value: boolean) => void
+}
+
+export const SearchBar = ({ clickToSearch }: SearchBarProps) => {
+  const dispatch = useAppDispatch()
+  const searchValue = useAppSelector(selectSearchValue)
+
+  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    clickToSearch(false)
+    dispatch(booksActions.setSearchByName(e.target.value))
+  }
+  const handleClickToSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    clickToSearch(true)
   }
 
   return (
@@ -18,13 +33,15 @@ export const SearchBar = () => {
           pl-10 text-sm text-gray-900 outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
           placeholder="Search..."
           autoComplete="off"
+          value={searchValue}
+          onChange={onChangeValueHandler}
         />
       </div>
       <button
         type="submit"
         className="h-[38px] rounded-lg rounded-l-none bg-blue-700 px-4 py-2 text-sm font-medium text-white transition
         hover:bg-blue-500 focus:outline-none focus:ring-blue-300 active:bg-blue-800"
-        onClick={e => handleClickSearch(e)}
+        onClick={handleClickToSearch}
       >
         Search
       </button>

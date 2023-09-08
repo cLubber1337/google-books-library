@@ -3,12 +3,12 @@ import { Listbox } from '@headlessui/react'
 import { BsCaretDownFill, BsCaretUpFill, BsCheckLg } from 'react-icons/bs'
 
 type SelectProps = {
-  options: { id: number; name: string }[]
+  options: string[]
   label?: string
 }
 
 export const Select = ({ options, label }: SelectProps) => {
-  const [selected, setSelected] = useState(options[0].name)
+  const [selected, setSelected] = useState(options[0])
 
   return (
     <div className="relative w-full">
@@ -34,22 +34,22 @@ export const Select = ({ options, label }: SelectProps) => {
         overflow-auto rounded-md bg-white py-1 text-base
         shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
-              {options.map(({ id, name }) => (
+              {options.map(option => (
                 <Listbox.Option
-                  key={id}
+                  key={option}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? 'bg-blue-100 text-sky-900' : 'text-gray-900'
                     }`
                   }
-                  value={name}
+                  value={option}
                 >
                   {({ selected }) => (
                     <>
                       <span
                         className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
                       >
-                        {name}
+                        {option}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-700">
