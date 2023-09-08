@@ -1,3 +1,5 @@
+import { categoriesData, sortingData } from '@/lib/data/options-select-data.ts'
+
 export type BooksResponse = {
   kind: string
   totalItems: number
@@ -72,8 +74,13 @@ type Book = {
 
 export type GetBooksArgs = {
   search: string
+  orderBy: 'relevance' | 'newest'
+  maxResults: number
+  startIndex: number
 }
 
 export type BooksState = {
   searchValue: string
+  category: (typeof categoriesData)[number]
+  sorting: (typeof sortingData)[number]
 }

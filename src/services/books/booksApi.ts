@@ -2,7 +2,6 @@ import { baseApi } from '@/services/baseApi.ts'
 import { BooksResponse, GetBooksArgs } from './types.ts'
 
 const apiKey = import.meta.env.VITE_BOOKS_KEY
-const MAX_RESULTS = 30
 
 const booksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -13,8 +12,10 @@ const booksApi = baseApi.injectEndpoints({
           method: 'GET',
           params: {
             key: apiKey,
-            maxResults: MAX_RESULTS,
+            maxResults: args.maxResults,
             q: args.search,
+            orderBy: args.orderBy,
+            startIndex: args.startIndex,
           },
         }
       },

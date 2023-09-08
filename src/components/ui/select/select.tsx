@@ -1,19 +1,28 @@
 import { useState } from 'react'
 import { Listbox } from '@headlessui/react'
 import { BsCaretDownFill, BsCaretUpFill, BsCheckLg } from 'react-icons/bs'
+import { categoriesData, sortingData } from '@/lib/data/options-select-data.ts'
 
 type SelectProps = {
-  options: string[]
+  options: typeof sortingData | typeof categoriesData
   label?: string
+  initValue?: string
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChangeValue?: (value: any) => void
 }
 
-export const Select = ({ options, label }: SelectProps) => {
-  const [selected, setSelected] = useState(options[0])
+export const Select = ({ options, label, initValue, onChangeValue }: SelectProps) => {
+  const [selected, setSelected] = useState(initValue)
+
+  const onChangeHandler = (value: string) => {
+    setSelected(value)
+    onChangeValue?.(value)
+  }
 
   return (
     <div className="relative w-full">
       {label && <label className="mb-1 block font-medium text-white">{label}</label>}
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={onChangeHandler}>
         {({ open }) => (
           <>
             <Listbox.Button
@@ -34,9 +43,9 @@ export const Select = ({ options, label }: SelectProps) => {
         overflow-auto rounded-md bg-white py-1 text-base
         shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
-              {options.map(option => (
+              {options.map((option, id) => (
                 <Listbox.Option
-                  key={option}
+                  key={id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? 'bg-blue-100 text-sky-900' : 'text-gray-900'

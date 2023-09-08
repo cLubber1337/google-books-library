@@ -2,21 +2,30 @@ import { Header, BooksSection } from '@/components/ui'
 import { useGetBooksQuery } from '@/services/books/booksApi.ts'
 import { useState } from 'react'
 import { useAppSelector } from '@/services/store.ts'
-import { selectSearchValue } from '@/services/books'
+import { selectCategory, selectSearchValue, selectSorting } from '@/services/books'
 
 export const HomePage = () => {
   const [clickedToSearch, setClickedToSearch] = useState(false)
   const searchValue = useAppSelector(selectSearchValue)
-  console.log(clickedToSearch)
+  const sorting = useAppSelector(selectSorting)
+  const currentCategory = useAppSelector(selectCategory)
+  const orderBy = sorting.toLowerCase() as 'relevance' | 'newest'
+  const category = `+subject:${currentCategory}`
+  const search = currentCategory !== 'All' ? `${searchValue}${category}` : searchValue
 
-  const { data } = useGetBooksQuery({ search: searchValue }, { skip: !clickedToSearch })
+  const handleLoadMore = () => null
+
+  const { data } = useGetBooksQuery(
+    { search, orderBy, maxResults: 30, startIndex: 0 },
+    { skip: !clickedToSearch }
+  )
 
   return (
-    <main>
+    <main className="min-h-screen bg-gray-300">
       <Header setClickedToSearch={setClickedToSearch} />
-      <main className="mx-auto max-w-[1200px] px-4">
-        <BooksSection data={data} />
-      </main>
+      <div className="mx-auto max-w-[1200px] px-4">
+        <BooksSection data={data} loadMore={handleLoadMore} />
+      </div>
     </main>
   )
 }

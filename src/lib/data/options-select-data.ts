@@ -6,5 +6,5 @@ export const categoriesData = [
   'History',
   'Medical',
   'Poetry',
-]
-export const sortingData = ['Relevance', 'Newest']
+] as const
+export const sortingData = ['Relevance', 'Newest'] as const

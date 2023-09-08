@@ -2,7 +2,7 @@ import { BsSearch } from 'react-icons/bs'
 
 import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 import { booksActions, selectSearchValue } from '@/services/books'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, MouseEvent } from 'react'
 
 type SearchBarProps = {
   clickToSearch: (value: boolean) => void
@@ -16,7 +16,7 @@ export const SearchBar = ({ clickToSearch }: SearchBarProps) => {
     clickToSearch(false)
     dispatch(booksActions.setSearchByName(e.target.value))
   }
-  const handleClickToSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickToSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     clickToSearch(true)
   }
