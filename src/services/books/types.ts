@@ -77,10 +77,13 @@ export type GetBooksArgs = {
   orderBy: 'relevance' | 'newest'
   maxResults: number
   startIndex: number
+  loadMore: boolean
 }
 
 export type BooksState = {
+  searchTrigger: boolean
   searchValue: string
   category: (typeof categoriesData)[number]
   sorting: (typeof sortingData)[number]
+  loadMoreBooks: boolean
 }

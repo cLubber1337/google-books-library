@@ -7,6 +7,8 @@ const initialState: BooksState = {
   searchValue: '',
   category: 'All',
   sorting: 'Relevance',
+  loadMoreBooks: false,
+  searchTrigger: false,
 }
 
 export const booksSlice = createSlice({
@@ -21,6 +23,12 @@ export const booksSlice = createSlice({
     },
     setSorting: (state, action: PayloadAction<(typeof sortingData)[number]>) => {
       state.sorting = action.payload
+    },
+    setLoadMoreBooks: (state, action: PayloadAction<boolean>) => {
+      state.loadMoreBooks = action.payload
+    },
+    setSearchTrigger: (state, action: PayloadAction<boolean>) => {
+      state.searchTrigger = action.payload
     },
   },
 })

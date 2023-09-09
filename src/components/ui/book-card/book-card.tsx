@@ -19,7 +19,7 @@ export const BookCard = ({ imageLink, title, authors, category }: BookCardProps)
       </Link>
       <div className="g-4 flex h-36 w-full flex-col">
         <p className="text-sm text-gray-500 underline">{category}</p>
-        <p className="flex-1 pt-1 font-semibold">{title}</p>
+        <p className="line-clamp-4 flex-1 py-1 font-semibold">{title}</p>
         <p className="text-sm text-gray-500">{authors?.map(author => author)}</p>
       </div>
     </article>

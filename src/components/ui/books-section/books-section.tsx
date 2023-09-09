@@ -14,16 +14,18 @@ export const BooksSection = ({ data, loadMore }: BooksSectionProps) => {
         </h3>
       )}
       <nav className="flex flex-row flex-wrap justify-center gap-4">
-        {data?.items.map(book => (
-          <li key={book.etag} className="w-full list-none sm:w-[45%] lg:w-[30%] ">
-            <BookCard
-              imageLink={book?.volumeInfo?.imageLinks?.thumbnail}
-              title={book?.volumeInfo?.title}
-              authors={book?.volumeInfo?.authors}
-              category={book?.volumeInfo?.categories?.[0]}
-            />
-          </li>
-        ))}
+        {data &&
+          data.totalItems > 0 &&
+          data.items.map(book => (
+            <li key={book.etag} className="w-full list-none sm:w-[45%] lg:w-[30%] ">
+              <BookCard
+                imageLink={book.volumeInfo.imageLinks?.thumbnail}
+                title={book.volumeInfo.title}
+                authors={book.volumeInfo.authors}
+                category={book.volumeInfo.categories?.[0]}
+              />
+            </li>
+          ))}
       </nav>
       <div className="my-2 flex justify-center">
         {data && data.totalItems > 30 && (

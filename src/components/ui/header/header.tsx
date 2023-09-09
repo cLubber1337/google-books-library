@@ -3,11 +3,7 @@ import { categoriesData, sortingData } from '@/lib/data/options-select-data.ts'
 import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 import { booksActions, selectCategory, selectSorting } from '@/services/books'
 
-type HeaderProps = {
-  setClickedToSearch: (value: boolean) => void
-}
-
-export const Header = ({ setClickedToSearch }: HeaderProps) => {
+export const Header = () => {
   const dispatch = useAppDispatch()
   const initCategory = useAppSelector(selectCategory)
   const initSorting = useAppSelector(selectSorting)
@@ -16,7 +12,7 @@ export const Header = ({ setClickedToSearch }: HeaderProps) => {
     <header className="bg-gray-600 px-4 py-12">
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-8 text-center text-4xl font-bold text-white">Search for books</h1>
-        <SearchBar clickToSearch={setClickedToSearch} />
+        <SearchBar />
         <div
           className="flex flex-col items-center space-x-0 space-y-5 sm:flex-row sm:justify-between sm:space-x-5
         sm:space-y-0"
