@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { booksActions, BooksResponse, GetBooksArgs } from '@/services/books'
+import { Book, booksActions, BooksResponse, GetBooksArgs } from '@/services/books'
 
 const apiKey = import.meta.env.VITE_BOOKS_KEY
 
@@ -13,7 +13,7 @@ export const baseApi = createApi({
     getBooks: builder.query<BooksResponse, GetBooksArgs>({
       query: args => {
         return {
-          url: `volumes?`,
+          url: `volumes`,
           method: 'GET',
           params: {
             key: apiKey,
@@ -44,7 +44,18 @@ export const baseApi = createApi({
         return currentArg !== previousArg
       },
     }),
+    getBook: builder.query<Book, { id: string }>({
+      query: ({ id }) => {
+        return {
+          url: `volumes/${id}`,
+          method: 'GET',
+          params: {
+            key: apiKey,
+          },
+        }
+      },
+    }),
   }),
 })
 
-export const { useGetBooksQuery } = baseApi
+export const { useGetBooksQuery, useGetBookQuery } = baseApi

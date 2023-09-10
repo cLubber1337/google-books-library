@@ -11,7 +11,7 @@ type industryIdentifiers = {
   identifier: string
 }
 
-type Book = {
+export type Book = {
   kind: string
   id: string
   etag: string

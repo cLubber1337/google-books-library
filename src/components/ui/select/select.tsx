@@ -27,9 +27,7 @@ export const Select = ({ options, label, initValue, onChangeValue }: SelectProps
           <>
             <Listbox.Button
               className="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-gray-50 px-3
-        py-2 text-left shadow-sm focus:border-blue-500
-        focus:outline-none focus:ring-1
-        focus:ring-blue-500"
+        py-2 text-left shadow-sm outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
             >
               {selected}
               {open ? (
