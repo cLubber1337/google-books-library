@@ -9,9 +9,11 @@ import {
   selectSearchValue,
   selectSorting,
 } from '@/services/books'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useGetBooksQuery } from '@/services/baseApi.ts'
 import { Loader } from '@/components/ui/loader/loader.tsx'
+import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify'
 
 export const BooksPage = () => {
   const maxResults = 30
@@ -26,7 +28,7 @@ export const BooksPage = () => {
   const search = currentCategory !== 'All' ? `${searchValue}${category}` : searchValue
   const [startIndex, setStartIndex] = useState(0)
 
-  const { data, isFetching, isLoading } = useGetBooksQuery(
+  const { data, isFetching, isLoading, error } = useGetBooksQuery(
     {
       search,
       orderBy,
@@ -43,10 +45,11 @@ export const BooksPage = () => {
     }
   }
 
-  const showLoadMoreButton = data && data.totalItems > maxResults
-
-  console.log('length', data?.items?.length)
-  console.log('TOTAL ITEMS', data?.totalItems)
+  useEffect(() => {
+    if (error) {
+      toast.error((error as any).data.error.message || 'Something went wrong')
+    }
+  }, [error])
 
   return (
     <section className="px-2 sm:px-4">
@@ -77,7 +80,7 @@ export const BooksPage = () => {
         )}
       </nav>
       <div className="flex justify-center">
-        {showLoadMoreButton && (
+        {data && data.totalItems > maxResults && (
           <Button onClick={handleLoadMoreBooks} disabled={isFetching}>
             Load more{' '}
             {isFetching ? (

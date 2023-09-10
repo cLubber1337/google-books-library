@@ -2,11 +2,19 @@ import { useParams } from 'react-router-dom'
 import { useGetBookQuery } from '@/services/baseApi.ts'
 import { BookInfoCard } from '@/components/ui'
 import { Loader } from '@/components/ui/loader/loader.tsx'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 export const BookInfoPage = () => {
   const { id } = useParams()
 
-  const { data: bookData, isFetching } = useGetBookQuery({ id: id as string })
+  const { data: bookData, isFetching, error } = useGetBookQuery({ id: id as string })
+
+  useEffect(() => {
+    if (error) {
+      toast.error((error as any).data.error.message || 'Something went wrong')
+    }
+  }, [error])
 
   return (
     <section className="p-2 sm:p-4">
